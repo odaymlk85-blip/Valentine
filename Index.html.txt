@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mira 💘</title>
+  <style>
+    body{
+      margin:0; min-height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: linear-gradient(135deg, #ffd6e7, #fff);
+      overflow:hidden;
+    }
+    .card{
+      background:#fff;
+      width:min(500px,90vw);
+      padding:30px 20px;
+      border-radius:22px;
+      box-shadow:0 20px 50px rgba(0,0,0,.15);
+      text-align:center;
+      position:relative;
+    }
+    h1{
+      font-size:28px;
+      margin-bottom:12px;
+    }
+    p{opacity:.7; font-size:14px;}
+    button{
+      border:0;
+      padding:12px 20px;
+      border-radius:999px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      user-select:none;
+    }
+    #yes{
+      background:#ff2d7a;
+      color:#fff;
+      margin-right:10px;
+    }
+    #no{
+      background:#eee;
+      position:absolute;
+      left:55%;
+      top:70%;
+    }
+    .msg{
+      margin-top:18px;
+      font-weight:700;
+      opacity:0;
+      transition:.3s;
+    }
+    .msg.show{opacity:1;}
+    .heart{
+      position:fixed;
+      font-size:20px;
+      animation:fly 1.5s forwards;
+    }
+    @keyframes fly{
+      from{opacity:1; transform:translateY(0);}
+      to{opacity:0; transform:translateY(-150px);}
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <h1>Mira 🌸<br>will you be my Valentine? 💘</h1>
+  <p>اختاري بسرعة… بس زر No شوي مش متعاون 😅</p>
+
+  <button id="yes">Yes 💖</button>
+  <button id="no">No ❌</button>
+
+  <div class="msg" id="msg">تم التسجيل رسميًا 😌💞</div>
+</div>
+
+<script>
+  const no = document.getElementById("no");
+  const yes = document.getElementById("yes");
+  const card = document.getElementById("card");
+  const msg = document.getElementById("msg");
+
+  function moveNo(x,y){
+    const r = card.getBoundingClientRect();
+    const maxX = r.width - no.offsetWidth;
+    const maxY = r.height - no.offsetHeight;
+    const nx = Math.random()*maxX;
+    const ny = Math.random()*maxY;
+    no.style.left = nx+"px";
+    no.style.top  = ny+"px";
+  }
+
+  no.addEventListener("mouseenter", e=>{
+    moveNo(e.clientX,e.clientY);
+  });
+  no.addEventListener("touchstart", e=>{
+    const t = e.touches[0];
+    moveNo(t.clientX,t.clientY);
+    e.preventDefault();
+  });
+
+  yes.addEventListener("click", ()=>{
+    msg.classList.add("show");
+    for(let i=0;i<15;i++){
+      setTimeout(()=>{
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerText="💖";
+        h.style.left=Math.random()*100+"vw";
+        h.style.top="80vh";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),1500);
+      },i*80);
+    }
+  });
+</script>
+
+</body>
+</html>
